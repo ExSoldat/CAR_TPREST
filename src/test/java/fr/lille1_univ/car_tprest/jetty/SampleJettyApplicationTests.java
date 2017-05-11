@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.lille1_univ.tp_car_2.jetty;
+package fr.lille1_univ.car_tprest.jetty;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +27,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import fr.lille1_univ.car_tprest.jetty.SampleJettyApplication;
 
 import static org.junit.Assert.assertEquals;
 

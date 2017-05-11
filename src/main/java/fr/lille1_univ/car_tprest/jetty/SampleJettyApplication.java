@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.lille1_univ.tp_car_2.jetty;
+package fr.lille1_univ.car_tprest.jetty;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
