@@ -28,7 +28,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import fr.lille1_univ.car_tprest.jetty.SampleJettyApplication;
+import fr.lille1_univ.car_tprest.jetty.RESTFileBrowserApplication;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
  * @author Dave Syer
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleJettyApplication.class)
+@SpringApplicationConfiguration(classes = RESTFileBrowserApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 @DirtiesContext

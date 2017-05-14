@@ -24,10 +24,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class SampleJettyApplication {
+public class RESTFileBrowserApplication {
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(SampleJettyApplication.class, args);
+		SpringApplication.run(RESTFileBrowserApplication.class, args);
 	}
 
 }
