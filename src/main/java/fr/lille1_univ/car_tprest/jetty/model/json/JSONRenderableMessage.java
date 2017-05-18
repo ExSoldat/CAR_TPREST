@@ -1,12 +1,12 @@
 package fr.lille1_univ.car_tprest.jetty.model.json;
 
-import fr.lille1_univ.car_tprest.jetty.model.Message;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
 
 public class JSONRenderableMessage extends JSONComplexObject implements JSONRenderableObject {
 
-	private Message value;
+	private UpweeMessage value;
 	
-	public JSONRenderableMessage(Message value) {
+	public JSONRenderableMessage(UpweeMessage value) {
 		this.value = value;
 	}
 	

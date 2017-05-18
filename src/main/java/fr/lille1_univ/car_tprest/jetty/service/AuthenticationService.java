@@ -4,39 +4,40 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import fr.lille1_univ.car_tprest.jetty.model.Credentials;
-import fr.lille1_univ.car_tprest.jetty.model.Message;
-import fr.lille1_univ.car_tprest.jetty.model.User;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableUser;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
+import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
 
 @Component
-public class AuthenticationService {
+public class AuthenticationService extends UpweeService {
 	
-	public ArrayList<User> availableUsers = new ArrayList<User>();
-	public Logger l = new Logger("AuthenticationService");
+	public ArrayList<UpweeUser> availableUsers = UsersTable.getInstance();
 	
 	public AuthenticationService() {
-		availableUsers.add(new User("freshprince", "noctisluciscaelum@insomnia.com", "azerty", false));
-		availableUsers.add(new User("freshprincess", "lunafreyanoxfleuret@tenebrae.com", "azerty", true));
+		super("AuthenticationService");
 	}
 	
-	public String authenticate(Credentials c) {
-		l.i("Starting autnehtication");
+	
+	public String authenticate(UpweeCredentials c) {
 		//Test is login is one of the users in the database (email or username)
-		for (User user : availableUsers) {
+		String[] parameters = {"Login : " + c.getLogin(), "Password : " + c.getPassword()};
+		l.ws(parameters);
+		for (UpweeUser user : availableUsers) {
 			if(user.getEmail().equals(c.getLogin()) || user.getUsername().equals(c.getLogin())) {
 				//Test if the password is correct too. In this case, we send back the user object
 				if(user.getPassword().equals(c.getPassword())) {
 					return new JSONRenderableUser(user).renderJSON();
 				} else {
-					return new JSONRenderableMessage(Message.INVALID_PASSWORD).renderJSON();
+					return new JSONRenderableMessage(UpweeMessage.INVALID_PASSWORD).renderJSON();
 				}
 			} 
 		}
 		//If we get here, then we did not find the user in the 'database';
-		return new JSONRenderableMessage(Message.INVALID_LOGIN).renderJSON();	
+		return new JSONRenderableMessage(UpweeMessage.INVALID_LOGIN).renderJSON();	
 	}
 
 }

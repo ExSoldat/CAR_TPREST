@@ -35,6 +35,20 @@ public class Logger {
 		_w("WARNING", warningMessage);
 	}
 	
+	/**
+	 * A function used to log a weservice call
+	 * @param parameters the parameters we want to log
+	 */
+	public void ws(String[] parameters) {
+		String callParameters = "";
+		int i = 0;
+		do {
+			callParameters+=parameters[i] + "; ";
+			i++;
+		} while (i<parameters.length);
+		_w("CALL", "with parameters : " + callParameters);
+	}
+	
 	/***
 	 * A function that outputs a message and its type
 	 * @param type the type of the message
@@ -42,9 +56,5 @@ public class Logger {
 	 */
 	private void _w(String type, String message) {
 		System.out.println(tag + '-' + type.toUpperCase() + " : " + message);
-	}
-
-	public void c(String testedCondition, String conditionResult) {
-		_w("DEBUGCONDITION-"+testedCondition.toUpperCase(), conditionResult);		
 	}
 }

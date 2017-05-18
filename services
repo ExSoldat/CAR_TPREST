@@ -1,6 +1,7 @@
 Authentication - Se connecter uniquement (pour le moment ?), récupérer le 'compte' et si c'est la première fois, afficher un tutoriel
-ListFiles - Récupérer TOUTE l'arborescence de l"utilsateur pour l'afficher et permettre à l'utilisateur de voir la liste des fichiers (on ne charge pas tous les fichiers, uniquement les noms et quelques meta informations)
+ListFiles(User u) - Récupérer TOUTE l'arborescence de l"utilsateur pour l'afficher et permettre à l'utilisateur de voir la liste des fichiers (on ne charge pas tous les fichiers, uniquement les noms et quelques meta informations)
 DownloadFile - Télécharger un fichier qu'on montre via l'arborescence
 DeleteFile - Supprimer un fichier via l'arborescence
-ConsultFile - Consulter un fichier ?
 Upload file - Poster un fichier
+ConsultFile - Consulter un fichier ?
+Mettre Springboot 1.5.3.RELEASE
