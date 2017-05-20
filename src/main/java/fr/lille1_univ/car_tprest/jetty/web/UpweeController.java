@@ -21,6 +21,7 @@ import java.io.InputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,9 +81,11 @@ public class UpweeController {
 			value="/api/files/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getList(HttpServletRequest request, @RequestParam(value="file", required = false, defaultValue = "") String filename) {
-		return this.fileSystemService.getListFromPath(getFullPath("/api/files/**", request, filename));
+		return this.fileSystemService.getListFromPath(getFullFileRequestPath("/api/files/**", request, filename));
 	}
 	
+	//inspiration : 
+	//http://stackoverflow.com/questions/5673260/downloading-a-file-from-spring-controllers
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/download/**", 
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -90,9 +93,9 @@ public class UpweeController {
 		try {
 			response.addHeader("Content-disposition", "attachment;filename=" + filename);
 			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-			InputStream stream = this.fileSystemService.getFile(getFullPath("/api/files/download/**", request, filename));
+			InputStream stream = this.fileSystemService.getFile(getFullFileRequestPath("/api/files/download/**", request, filename));
 			
-			response.getOutputStream().write(stream.read());
+			IOUtils.copy(stream, response.getOutputStream());
 			response.flushBuffer();
 		} catch (Exception e) {
 			l.e("Unable to get file");
@@ -105,7 +108,7 @@ public class UpweeController {
 	 * Helper functions
 	 */
 	
-	public String getFullPath(String pattern, HttpServletRequest request, String filename) {
+	public String getFullFileRequestPath(String pattern, HttpServletRequest request, String filename) {
 		String tail = new AntPathMatcher().extractPathWithinPattern(pattern, request.getRequestURI());
 		return tail+="/" + filename;
 	}
