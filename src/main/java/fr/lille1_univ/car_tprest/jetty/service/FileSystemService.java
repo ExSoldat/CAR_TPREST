@@ -66,4 +66,17 @@ public class FileSystemService extends UpweeService {
 		else throw(new Exception("File not found"));
 	}
 
+	public String deleteFromPath(String path) {
+		UpweeFile f = new UpweeFile(path);
+		if(f.exists()) {
+			if(f.delete()) return new JSONRenderableMessage(UpweeMessage.SUCCESSFULLY_DELETED).renderJSON();
+			else if(f.isDirectory()) {
+				return new JSONRenderableMessage(UpweeMessage.UNDELETABLE_DIRECTORY).renderJSON();
+			} else return new JSONRenderableMessage(UpweeMessage.UNKNOWN_ERROR).renderJSON();
+		}
+		else return new JSONRenderableMessage(UpweeMessage.UNEXISTING_FILE).renderJSON();
+	}
+	
+	
+
 }

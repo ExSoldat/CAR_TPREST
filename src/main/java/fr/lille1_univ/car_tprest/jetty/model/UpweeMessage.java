@@ -8,10 +8,12 @@ public class UpweeMessage {
 	/*200-299, OK*/
 	public static final UpweeMessage ACCESS_GRANTED = new UpweeMessage(200, "Access granted");
 	public static final UpweeMessage EMPTY_HOME = new UpweeMessage(201, "Empty home dir");
+	public static final UpweeMessage SUCCESSFULLY_DELETED = new UpweeMessage(202, "The file was successfully deleted");
 	/*300-399, Authorization*/
-	/*400-499, Not found*/
+	/*400-499, Error */
 	public static final UpweeMessage UNKNOWN_USER = new UpweeMessage(400, "User not found");
 	public static final UpweeMessage UNEXISTING_FILE = new UpweeMessage(401, "File not found");
+	public static final UpweeMessage UNDELETABLE_DIRECTORY = new UpweeMessage(402, "Unable to delete the directory, please check that it is empty");
 	/*500-599, Invalid Parameters*/
 	public static final UpweeMessage INVALID_LOGIN = new UpweeMessage(500, "Invalid login");
 	public static final UpweeMessage INVALID_PASSWORD = new UpweeMessage(501, "Invalid password");
