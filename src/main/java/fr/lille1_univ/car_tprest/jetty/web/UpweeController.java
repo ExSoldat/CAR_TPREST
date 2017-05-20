@@ -16,13 +16,18 @@
 
 package fr.lille1_univ.car_tprest.jetty.web;
 
+import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jetty.http.HttpTester.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -32,36 +37,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeFile;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
+import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.service.AuthenticationService;
-import fr.lille1_univ.car_tprest.jetty.service.HelloWorldService;
-import fr.lille1_univ.car_tprest.jetty.service.NotifyService;
 import fr.lille1_univ.car_tprest.jetty.service.FileSystemService;
-import fr.lille1_univ.car_tprest.jetty.service.SandboxService;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
 @Controller
 public class UpweeController {
 	
 	Logger l = new Logger("FileController");
-	@Autowired
-	private HelloWorldService helloWorldService;
 	
 	@Autowired
 	private AuthenticationService authenticationService;
 	
 	@Autowired
 	private FileSystemService fileSystemService;
-	
-	@Autowired
-	private NotifyService notifyService;
-
-	@RequestMapping("/")
-	@ResponseBody
-	public String helloWorld() {
-		return this.helloWorldService.getHelloMessage();
-	}
 	
 	@RequestMapping(method = {RequestMethod.POST},
 			headers = {"Content-type=application/json"},
@@ -100,11 +95,19 @@ public class UpweeController {
 	@RequestMapping(method = {RequestMethod.DELETE},
 			value="/api/files/delete/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public String delete(HttpServletRequest request, @RequestParam(value="file", required = true) String filename) {
+	public @ResponseBody String delete(HttpServletRequest request, @RequestParam(value="file", required = false, defaultValue="") String filename) {
 		return this.fileSystemService.deleteFromPath(getFullFileRequestPath("/api/files/delete/**", request, filename));
 	}
 	
-	
+	@RequestMapping(method = {RequestMethod.POST},
+			value="/api/files/upload/**", 
+			produces="application/json")
+	public @ResponseBody String upload(
+			 HttpServletRequest request,
+			 @RequestParam("file") MultipartFile file) throws Exception {
+	    //return new JSONRenderableMessage(UpweeMessage.ACCESS_GRANTED).renderJSON();
+		return this.fileSystemService.uploadSingleFile(file, getFullFileRequestPath("/api/files/upload/**", request, ""));
+	}
 	
 	/**
 	 * Helper functions

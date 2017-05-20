@@ -2,8 +2,12 @@ listfiles branch ;
 	Authentication - Se connecter uniquement (pour le moment ?), récupérer le 'compte' et si c'est la première fois, afficher un tutoriel
 	ListFiles(User u) - Récupérer TOUTE l'arborescence de l"utilsateur pour l'afficher et permettre à l'utilisateur de voir la liste des fichiers (on ne charge pas tous les fichiers, uniquement les noms et quelques meta informations)
 	DownloadFile - Télécharger un fichier qu'on montre via l'arborescence
-deletefile branch :
+dev branch :
 DeleteFile - Supprimer un fichier via l'arborescence
 Upload file - Poster un fichier
+
+-- 
 ConsultFile - Consulter un fichier ?
-Mettre Springboot 1.5.3.RELEASE
+MoveFile - Bouger un fichier ?
+Create dir - Créer un fichier ?
+Mettre Springboot 1.5.3.RELEASE au lieu de 1.0.2.RELEASE
