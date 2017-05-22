@@ -2,6 +2,8 @@ package fr.lille1_univ.car_tprest.jetty.model;
 
 import org.json.JSONObject;
 
+import fr.lille1_univ.car_tprest.jetty.utils.Logger;
+
 public class UpweeCredentials {
 	private String login;
 	private String password;
@@ -31,6 +33,8 @@ public class UpweeCredentials {
 	
 	public static UpweeCredentials getFromJsonString(String json) {
 		JSONObject obj = new JSONObject(json);
+		Logger l = new Logger("UpweeGetFromJSONString");
+		l.i(json);
 		return new UpweeCredentials(obj.getString("login"), obj.getString("password"));		
 	}
 }

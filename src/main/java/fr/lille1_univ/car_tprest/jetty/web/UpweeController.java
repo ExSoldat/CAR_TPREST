@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,7 @@ import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
 @Controller
 public class UpweeController {
+	//http://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working
 	
 	Logger l = new Logger("FileController");
 	
@@ -58,6 +60,7 @@ public class UpweeController {
 	@Autowired
 	private FileSystemService fileSystemService;
 	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			headers = {"Content-type=application/json"},
 			value="/api/authenticate", 
