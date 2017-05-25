@@ -25,9 +25,22 @@ public class JSONRenderableFile extends JSONComplexObject implements JSONRendera
 			this.addProp("size", new JSONRenderableLong(value.length()));
 			this.addProp("type", new JSONRenderableString(value.getType()));
 			l.i("value is directory : " + value.isDirectory());
-			if(value.isDirectory())
+			if(value.isDirectory()) {
 				this.addProp("files", new JSONRenderableFileList(value.listRenderableFiles()));//TODO Change it, override listFiles function instead of casting it
-			//TODO find a generic way of doing it
+				this.addProp("icon", new JSONRenderableString("folder"));
+			} else {
+				if(UpweeFile.isImage(value.getType())) {
+					this.addProp("icon", new JSONRenderableString("panorama"));
+				} else if (UpweeFile.isSound(value.getType())) {
+					this.addProp("icon", new JSONRenderableString("volume_up"));
+				} else if (UpweeFile.isVideo(value.getType())) {
+					this.addProp("icon", new JSONRenderableString("movie"));
+				} else {
+					this.addProp("icon", new JSONRenderableString("insert_drive_file"));
+				}
+				
+			}
+				//TODO find a generic way of doing it
 			return this.renderComplexJSON();
 		}
 		

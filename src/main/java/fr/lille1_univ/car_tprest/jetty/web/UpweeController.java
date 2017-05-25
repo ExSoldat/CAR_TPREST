@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,13 +71,22 @@ public class UpweeController {
 		return this.authenticationService.authenticate(UpweeCredentials.getFromJsonString(credentials));
 	}
 	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String getList(HttpServletRequest request, @RequestParam(value="file", required = false, defaultValue = "") String filename) {
-		return this.fileSystemService.getListFromPath(getFullFileRequestPath("/api/files/**", request, filename));
+		String decodedfileName = "";
+		try {
+			decodedfileName = java.net.URLDecoder.decode(filename, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			decodedfileName = filename;
+			e.printStackTrace();
+		}
+		return this.fileSystemService.getListFromPath(getFullFileRequestPath("/api/files/**", request, decodedfileName));
 	}
 	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/download/**", 
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -84,8 +94,9 @@ public class UpweeController {
 		try {
 			response.addHeader("Content-disposition", "attachment;filename=" + filename);
 			response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-			
-			InputStream stream = this.fileSystemService.getFile(getFullFileRequestPath("/api/files/download/**", request, filename));
+			String decodedfileName = "";
+			decodedfileName = java.net.URLDecoder.decode(filename, "UTF-8");
+			InputStream stream = this.fileSystemService.getFile(getFullFileRequestPath("/api/files/download/**", request, decodedfileName));
 			IOUtils.copy(stream, response.getOutputStream());
 			response.flushBuffer();
 			
@@ -95,13 +106,22 @@ public class UpweeController {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.DELETE},
 			value="/api/files/delete/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String delete(HttpServletRequest request, @RequestParam(value="file", required = false, defaultValue="") String filename) {
-		return this.fileSystemService.deleteFromPath(getFullFileRequestPath("/api/files/delete/**", request, filename));
+		String decodedfileName = "";
+		try {
+			decodedfileName = java.net.URLDecoder.decode(filename, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			decodedfileName = filename;
+			e.printStackTrace();
+		}
+		return this.fileSystemService.deleteFromPath(getFullFileRequestPath("/api/files/delete/**", request, decodedfileName));
 	}
 	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			value="/api/files/upload/**", 
 			produces="application/json")
