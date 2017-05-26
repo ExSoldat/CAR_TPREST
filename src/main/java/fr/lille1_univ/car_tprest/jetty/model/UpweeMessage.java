@@ -16,7 +16,7 @@ public class UpweeMessage {
 	/*400-499, Error */
 	public static final UpweeMessage UNKNOWN_USER = new UpweeMessage(400, "User not found");
 	public static final UpweeMessage UNEXISTING_FILE = new UpweeMessage(401, "File not found");
-	public static final UpweeMessage UNDELETABLE_DIRECTORY = new UpweeMessage(402, "Unable to delete the directory, please check that it is empty");
+	public static final UpweeMessage UNDELETABLE_DIRECTORY = new UpweeMessage(402, "Unable to delete the directory, please check that it is empty and unused");
 	public static final UpweeMessage IMBOSSIBLE_UPLOAD = new UpweeMessage(403, "Unable to upload a file in this directory. Please try again.");
 	public static final UpweeMessage INVALID_FILE = new UpweeMessage(404, "Invalid file. Please try with another");
 	public static final UpweeMessage IMPOSSIBLE_CREATION = new UpweeMessage(405, "Unable to create the folder. Please try again");

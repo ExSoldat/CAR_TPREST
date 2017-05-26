@@ -46,14 +46,14 @@ public class UsersTable extends ArrayList<UpweeUser>{
 		return super.get(index-1);
 	}
 	
-	@Override
-	public boolean add(UpweeUser u) {
+	public boolean addToDatabase(UpweeUser u) {
 		//save file
 		if(saveInFile(u))
 			return super.add(u);
 		else
 			return false;
 	}
+	
 	public boolean saveInFile(UpweeUser u) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("user_database.txt", true), "utf-8"));

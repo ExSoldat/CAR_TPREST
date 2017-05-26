@@ -7,12 +7,5 @@ DeleteFile - Supprimer un fichier via l'arborescence
 Upload file - Poster un fichier
 
 -- 
-ConsultFile - Consulter un fichier ?
 MoveFile - Bouger un fichier ?
-Create dir - Créer un fichier ?
 Mettre Springboot 1.5.3.RELEASE au lieu de 1.0.2.RELEASE
-
-
-
-Modifications après implémentation :
-Ajouter om de l'icone et le type fichier/repertoire	 dans le json de retour dans litfile

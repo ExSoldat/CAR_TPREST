@@ -16,7 +16,7 @@ import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
 @Component
 public class AuthenticationService extends UpweeService {
 	
-	public ArrayList<UpweeUser> availableUsers = UsersTable.getInstance();
+	public UsersTable availableUsers = UsersTable.getInstance();
 	
 	public AuthenticationService() {
 		super("AuthenticationService");
@@ -46,7 +46,7 @@ public class AuthenticationService extends UpweeService {
 		String[] parameters = {"Login : " + c.getLogin(), "Email : " + c.getEmail(),  "Password : " + c.getPassword()};
 		l.ws(parameters);
 		UpweeUser newUser = new UpweeUser(c.getLogin(), c.getEmail(), c.getPassword(), true);
-		if(availableUsers.add(newUser)) {
+		if(availableUsers.addToDatabase(newUser)) {
 			newUser.getHomeDir().mkdirs();
 			return new JSONRenderableMessage(UpweeMessage.ACCOUNT_CREATED).renderJSON();
 		} else {
