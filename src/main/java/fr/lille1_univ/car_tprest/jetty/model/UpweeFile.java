@@ -34,7 +34,11 @@ public class UpweeFile extends File {
 		if (i >= 0) {
 		    this.extension = pathname.substring(i+1);
 		} else {
-			this.extension = "folder";
+			if(this.isFile()) {
+				this.extension = "txt";
+			} else {
+				this.extension = "folder";
+			}
 		}
 	}
 

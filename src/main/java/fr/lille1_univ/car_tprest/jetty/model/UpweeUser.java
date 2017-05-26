@@ -16,7 +16,7 @@ public class UpweeUser {
 		this.email = email;
 		this.password = password;
 		this.firstConnection = true;
-		this.homeDir = new UpweeFile(username.toLowerCase());
+		this.homeDir = new UpweeFile(username.toLowerCase().replaceAll("\\s+",""));
 	}
 	
 	public UpweeUser() {

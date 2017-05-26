@@ -10,6 +10,8 @@ public class UpweeMessage {
 	public static final UpweeMessage EMPTY_HOME = new UpweeMessage(201, "Empty home dir");
 	public static final UpweeMessage SUCCESSFULLY_DELETED = new UpweeMessage(202, "The file was successfully deleted");
 	public static final UpweeMessage SUCCESSFULLY_UPLOADED = new UpweeMessage(203, "The file was successfully uploaded");
+	public static final UpweeMessage FOLDER_CREATED = new UpweeMessage(204, "The folder was successfully created");
+	public static final UpweeMessage ACCOUNT_CREATED = new UpweeMessage(205, "Account successfuly created");
 	/*300-399, Authorization*/
 	/*400-499, Error */
 	public static final UpweeMessage UNKNOWN_USER = new UpweeMessage(400, "User not found");
@@ -17,6 +19,9 @@ public class UpweeMessage {
 	public static final UpweeMessage UNDELETABLE_DIRECTORY = new UpweeMessage(402, "Unable to delete the directory, please check that it is empty");
 	public static final UpweeMessage IMBOSSIBLE_UPLOAD = new UpweeMessage(403, "Unable to upload a file in this directory. Please try again.");
 	public static final UpweeMessage INVALID_FILE = new UpweeMessage(404, "Invalid file. Please try with another");
+	public static final UpweeMessage IMPOSSIBLE_CREATION = new UpweeMessage(405, "Unable to create the folder. Please try again");
+	public static final UpweeMessage UNABLE_ACCOUNT_CREATION = new UpweeMessage(406, "Unable to create your account");
+	public static final UpweeMessage TOO_LARGE_FILE = new UpweeMessage(407, "File size exceeds maximum authorized");
 	/*500-599, Invalid Parameters*/
 	public static final UpweeMessage INVALID_LOGIN = new UpweeMessage(500, "Invalid login");
 	public static final UpweeMessage INVALID_PASSWORD = new UpweeMessage(501, "Invalid password");
@@ -27,8 +32,6 @@ public class UpweeMessage {
 	/*900-998, ?*/
 	/*999, Unknown*/
 	public static final UpweeMessage UNKNOWN_ERROR = new UpweeMessage(999, "Unknown error");
-	
-	
 	
 	
 	public UpweeMessage(int code, String message) {

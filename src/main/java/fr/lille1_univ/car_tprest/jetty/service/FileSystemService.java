@@ -120,4 +120,16 @@ public class FileSystemService extends UpweeService {
 			Files.write(path, bytes);
 		}
 	}
+
+	public String createFolder(String path) {
+		String[]parameters = {"path :" + path};
+		l.ws(parameters);
+		UpweeFile f = new UpweeFile(path);
+		
+		if(f.mkdirs()) {
+			return new JSONRenderableMessage(UpweeMessage.FOLDER_CREATED).renderJSON();
+		} else {
+			return new JSONRenderableMessage(UpweeMessage.IMPOSSIBLE_CREATION).renderJSON();
+		}
+	}
 }

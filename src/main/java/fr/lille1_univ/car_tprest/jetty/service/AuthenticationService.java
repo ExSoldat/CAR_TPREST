@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeRegisteringCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableUser;
@@ -38,6 +39,19 @@ public class AuthenticationService extends UpweeService {
 		}
 		//If we get here, then we did not find the user in the 'database';
 		return new JSONRenderableMessage(UpweeMessage.INVALID_LOGIN).renderJSON();	
+	}
+
+
+	public String register(UpweeRegisteringCredentials c) {
+		String[] parameters = {"Login : " + c.getLogin(), "Email : " + c.getEmail(),  "Password : " + c.getPassword()};
+		l.ws(parameters);
+		UpweeUser newUser = new UpweeUser(c.getLogin(), c.getEmail(), c.getPassword(), true);
+		if(availableUsers.add(newUser)) {
+			newUser.getHomeDir().mkdirs();
+			return new JSONRenderableMessage(UpweeMessage.ACCOUNT_CREATED).renderJSON();
+		} else {
+			return new JSONRenderableMessage(UpweeMessage.UNABLE_ACCOUNT_CREATION).renderJSON();
+		}
 	}
 
 }

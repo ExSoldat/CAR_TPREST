@@ -44,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeFile;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
+import fr.lille1_univ.car_tprest.jetty.model.UpweeRegisteringCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.service.AuthenticationService;
 import fr.lille1_univ.car_tprest.jetty.service.FileSystemService;
@@ -72,6 +73,16 @@ public class UpweeController {
 	}
 	
 	@CrossOrigin
+	@RequestMapping(method = {RequestMethod.POST},
+			headers = {"Content-type=application/json"},
+			value="/api/register", 
+			produces="application/json")
+	public @ResponseBody String register(
+			@RequestBody String credentials) {
+		return this.authenticationService.register(UpweeRegisteringCredentials.getFromJsonString(credentials));
+	}
+	
+	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
@@ -85,6 +96,8 @@ public class UpweeController {
 		}
 		return this.fileSystemService.getListFromPath(getFullFileRequestPath("/api/files/**", request, decodedfileName));
 	}
+	
+	
 	
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
@@ -110,7 +123,7 @@ public class UpweeController {
 	@RequestMapping(method = {RequestMethod.DELETE},
 			value="/api/files/delete/**", 
 			produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String delete(HttpServletRequest request, @RequestParam(value="file", required = false, defaultValue="") String filename) {
+	public @ResponseBody String delete(HttpServletRequest request, @RequestParam(value="file", required = true, defaultValue="") String filename) {
 		String decodedfileName = "";
 		try {
 			decodedfileName = java.net.URLDecoder.decode(filename, "UTF-8");
@@ -127,9 +140,21 @@ public class UpweeController {
 			produces="application/json")
 	public @ResponseBody String upload(
 			 HttpServletRequest request,
-			 @RequestParam("file") MultipartFile file) throws Exception {
-	    //return new JSONRenderableMessage(UpweeMessage.ACCESS_GRANTED).renderJSON();
-		return this.fileSystemService.uploadSingleFile(file, getFullFileRequestPath("/api/files/upload/**", request, ""));
+			 @RequestParam("file") MultipartFile file) {
+		try {
+			return this.fileSystemService.uploadSingleFile(file, getFullFileRequestPath("/api/files/upload/**", request, ""));
+		} catch (IllegalStateException e) { 
+			return new JSONRenderableMessage(UpweeMessage.TOO_LARGE_FILE).renderJSON();
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method = {RequestMethod.POST},
+			value="/api/files/create/**", 
+			produces="application/json")
+	public @ResponseBody String create(
+			 HttpServletRequest request) throws Exception {
+		return this.fileSystemService.createFolder(getFullFileRequestPath("/api/files/create/**", request, ""));
 	}
 	
 	/**
