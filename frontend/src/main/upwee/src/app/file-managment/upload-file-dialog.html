@@ -1,0 +1,16 @@
+<div class="content">
+	<h1 md-dialog-title>Upload</h1>
+	<div md-dialog-content>Please choose a file to upload to {{this.path}}</div>
+	 <input name="file" type="file" id="fileinput" style="visibility:hidden;" (change)="onChange($event)"/>
+	 <div>
+		 <button md-raised-button color="primary" (click)="openFileExplorer()">Choose a file</button>
+		 <md-input-container color="primary">
+			<input mdInput placeholder="Filename" disabled [(ngModel)]="this.filename">
+		</md-input-container>
+		<p [style.color]="errormessagecolor">The file size can't exceed 128Kb</p>
+	</div>
+	<div md-dialog-actions>
+	  <button md-raised-button color="accent" [disabled]="filename=='' || filesizeok==false" (click)="dialogRef.close(this.file)">Confirm</button>
+	  <button md-button color="warn" (click)="dialogRef.close(false)">Cancel</button>
+	</div>
+</div>

@@ -1,0 +1,72 @@
+.content {
+	min-height:91.7vh;
+	min-width:100vh;
+	background-color:#eee;
+	padding: 1% 5% 5% 5%;
+	min-height:590px;
+	height:590px;
+	max-height:590px;
+}
+
+.mat_list_item {
+	background-color: white;
+}
+
+.mat_list_item md-icon {
+	color:#888;
+}
+md-list {
+	padding:0;
+	height:89%;
+	overflow-y:scroll;
+	border:1px solid #bbb;
+}
+
+md-list-item {
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+}
+
+md-list-item:hover {
+	background-color: #E3F2FD;
+}
+
+.list-container {
+	padding:0;
+	height:100%;
+	overflow-y:none;
+	border:1px solid #bbb;
+}
+
+.toolbar_font {
+	color:white;
+}
+
+.warn_icon {
+	color:#D50000;
+}
+
+.goback_arrow {
+	position:relative;
+	top:-30px;
+	left:30px;
+}
+
+.history-link {
+	cursor : pointer;
+	color : #F1F8E9;
+	text-decoration: underline;
+}
+
+.history-link:hover {
+	color:#BBDEFB;
+}
+
+.filename {
+	font-weight: bold!important;
+}
+
+.additionnal-information {
+	font-weight: light!important;
+	color:#aaa;
+}

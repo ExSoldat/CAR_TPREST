@@ -1,0 +1,16 @@
+.content {
+	min-height:91.7vh;
+	min-width:100vh;
+}
+
+.centered {
+  position: fixed;
+  top: 40%;
+  left: 35%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+
+.background {
+	background: url(../../assets/background-blurred.png); 
+}

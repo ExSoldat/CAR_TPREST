@@ -1,0 +1,51 @@
+<div class="content">
+<!--
+    <i class="material-icons">insert_drive_file</i>
+	<i class="material-icons">get_app</i>
+	<i class="material-icons">clear</i>
+	<i class="material-icons">file_upload</i>
+	<i class="material-icons">folder</i>
+	<i class="material-icons">folder_open</i>
+	<i class="material-icons">panorama</i>
+	<i class="material-icons">movie</i>
+	<i class="material-icons">create_new_folder</i>
+*ngIf="f.type != 'folder'"
+ "
+	-->
+	<div class="mat-elevation-z8 list-container">
+		<md-toolbar color="primary">
+			<h1 class="toolbar_font"><a class="history-link" uwDroptarget (dropped)="moveFileUpwards($event, 0)" (click)="moveTo(0)"><i class="material-icons">home</i></a>/</h1>
+			<h1 class="toolbar_font" *ngFor="let p of navigationHistory; let i = index" ><a class="history-link" uwDroptarget (dropped)="moveFileUpwards($event, i+1)" (click)="moveTo(i+1)">{{p.file_name}}</a>/</h1>
+			<span class="fill-remaining-space"></span>
+			<button md-button class="toolbar_font" (click)="openUploadDialog(path)">
+				<md-icon md-list-icon>file_upload</md-icon>
+			</button>
+			<button md-button class="toolbar_font" (click)="openCreationDialog()">
+				<md-icon md-list-icon>create_new_folder</md-icon>
+			</button>
+		</md-toolbar>
+		<md-list>
+		<md-progress-bar color="accent" mode="indeterminate" *ngIf="loading"></md-progress-bar>
+			<div *ngIf="data != undefined">
+				<md-list-item [uwDraggable]="{data: f.file_name}" uwDroptarget (dropped)="moveFile($event, f.file_name)" (click)="moveInto(f)" disableRipple=false class="mat_list_item" *ngFor="let f of data.files">
+					<md-icon md-list-icon>{{f.icon}}</md-icon>
+				    <h4 md-line class="filename">{{f.file_name}}</h4>
+				    <p md-line class="additionnal-information">Last updated : {{f.last_modified}}</p>
+				    <span class="fill-remaining-space"></span>
+				    <button *ngIf="f.type != 'folder'" md-button (click)="downloadFile(path, f.file_name)">
+						<md-icon md-list-icon style="color:#b2ff59">get_app</md-icon>
+					</button>
+				    <button md-button (click)="openDeletionDialog(path, f.file_name, $event)">
+						<md-icon md-list-icon style="color:#f44336">clear</md-icon>
+					</button>
+				</md-list-item>
+			</div>
+			<md-divider></md-divider>
+		</md-list>
+		<a *ngIf="showGoBackArrow" md-fab color="primary" class="goback_arrow" (click)="goback()">
+			<md-icon md-list-icon style="color:#fff">arrow_back</md-icon>
+		</a>
+	</div>
+</div>
+
+ 

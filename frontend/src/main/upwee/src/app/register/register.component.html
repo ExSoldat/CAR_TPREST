@@ -1,0 +1,23 @@
+<div class="content background">
+    <div class="centered">
+    <md-progress-bar color="accent" mode="indeterminate" *ngIf="loading"></md-progress-bar>
+    	<md-card class="mat-elevation-z24">
+    		<h1>Create your account</h1>
+    			<div class="form-group" (keydown)="submit($event)">
+    				<md-input-container class="full-width" color="primary">
+    					<input mdInput placeholder="Username" [(ngModel)]="registerCredentials.login">
+    				</md-input-container>
+    				<md-input-container class="full-width" color="primary">
+    					<input mdInput placeholder="Email" [(ngModel)]="registerCredentials.email">
+    				</md-input-container>
+    				<md-input-container class="full-width" color="primary">
+    					<input type="password" mdInput placeholder="Password" [(ngModel)]="registerCredentials.password">
+    				</md-input-container>
+    				<div class="button-row">
+    					<button md-raised-button id="button-register" color="primary" (click)="register()">Sign in</button>
+    					<button md-button color="warn" id="button-cancel" (click)="gotologin()">Cancel</button>
+    				</div>
+    			</div>
+    	</md-card>
+    </div>
+</div>

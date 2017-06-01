@@ -1,0 +1,6 @@
+<h1 md-dialog-title>Delete confirmation</h1>
+<div md-dialog-content>Do you really want to delete the file {{this.filename}} ?</div>
+<div md-dialog-actions>
+  <button md-button color="accent" (click)="dialogRef.close(true)">Yes</button>
+  <button md-button color="warn" (click)="dialogRef.close(false)">Cancel</button>
+</div>

@@ -1,0 +1,9 @@
+<h1 md-dialog-title>Create a folder</h1>
+<div md-dialog-content>Please provide a name for the folder</div>
+<md-input-container class="full-width" color="primary">
+	<input mdInput placeholder="Folder" (keydown)="submit($event)" [(ngModel)]="foldername">
+</md-input-container>
+<div md-dialog-actions>
+  <button md-raised-button color="accent" id="confirm-button" [disabled]="foldername==''" (click)="dialogRef.close(this.foldername)">Confirm</button>
+  <button md-button color="warn" (click)="dialogRef.close(false)">Cancel</button>
+</div>
