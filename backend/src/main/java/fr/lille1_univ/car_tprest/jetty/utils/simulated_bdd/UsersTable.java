@@ -9,13 +9,15 @@ import java.util.ArrayList;
 
 import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 
+	/**
+	* A class used to simulate a database as an arraylist saving its values to a text file
+	*/
 public class UsersTable extends ArrayList<UpweeUser>{
 	
 	static UsersTable instance = null;
 	BufferedReader br;
 	FileReader fr;
 	
-	//TODO correct so it does not create illimited files
 	private UsersTable() {
 		try {
 			String s;

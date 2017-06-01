@@ -18,7 +18,11 @@ export class FileService {
 		console.log('calling : ' + url);
 		return this.http.get(url)
 		.map((response: Response) => {
-			return response.json();
+			//return response.json();
+			if(response.json().code === 401) 
+				return false;
+			else 
+				return response.json();
 		});
 	}
 

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import fr.lille1_univ.car_tprest.jetty.utils.Constants;
 import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
-
+	/**
+	* A class that represents the app users
+	*/
 public class UpweeUser {
 	private String username, password, email;
 	public UpweeFile homeDir;

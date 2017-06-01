@@ -127,8 +127,13 @@ export class FileManagmentComponent implements OnInit {
   listFiles(fullpath : string):any {
     this.loading = true;
     this.fileservice.apiListFiles(this.path).subscribe(result => {
-      this.data = result;
-      this.loading = false;
+      if(result === false) {
+        this.showError('The file does not exist anymore :(');
+        this.goback();
+      } else {
+        this.data = result;
+        this.loading = false;
+      }
     });
   }
 

@@ -7,6 +7,9 @@ import fr.lille1_univ.car_tprest.jetty.model.UpweeFile;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeFileList;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 
+	/**
+	* A class used to render files
+	*/
 public class JSONRenderableFile extends JSONComplexObject implements JSONRenderableObject {
 	
 	private UpweeFile value;
@@ -17,7 +20,9 @@ public class JSONRenderableFile extends JSONComplexObject implements JSONRendera
 	}
 
 	@Override
-	//LASTOTODO
+	/**
+	* A function that renders the file to send it
+	*/
 	public String renderJSON() {
 		if(value.exists()) {
 			this.addProp("file_name", new JSONRenderableString(value.getName()));
@@ -40,7 +45,6 @@ public class JSONRenderableFile extends JSONComplexObject implements JSONRendera
 				}
 				
 			}
-				//TODO find a generic way of doing it
 			return this.renderComplexJSON();
 		}
 		

@@ -34,6 +34,9 @@ import fr.lille1_univ.car_tprest.jetty.utils.Constants;
 import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
 
 @Component
+	/**
+	* A function that is used to answer to calls concerning the files
+	*/
 public class FileSystemService extends UpweeService {
 
 	public FileSystemService() {
@@ -41,6 +44,8 @@ public class FileSystemService extends UpweeService {
 	}
 	
 	/***
+	 * A deprecated function that was used to get the files list for a given user
+	 * Unused because REST is working with resources urls
 	 * @deprecated
 	 * @param userId the users id
 	 * @return a list of files for the user
@@ -59,6 +64,9 @@ public class FileSystemService extends UpweeService {
 		return new JSONRenderableFile(user.getHomeDir()).renderJSON();
 	}
 
+	/**
+	* A function that is used to send a json corresponding to a list of files from a given path
+	*/
 	public String getListFromPath(String path) {
 		String[]parameters = {"path :" + path};
 		l.ws(parameters);
@@ -70,6 +78,9 @@ public class FileSystemService extends UpweeService {
 		return new JSONRenderableFile(f).renderJSON();
 	}
 
+	/**
+	* A function that is used to get a specific file and the corresponding inputstream
+	*/
 	public InputStream getFile(String path) throws Exception {
 		String[]parameters = {"path :" + path};
 		l.ws(parameters);
@@ -78,6 +89,9 @@ public class FileSystemService extends UpweeService {
 		else throw(new Exception("File not found"));
 	}
 
+	/**
+	* A function that is used to delete a file knowing its path
+	*/
 	public String deleteFromPath(String path) {
 		String[]parameters = {"path :" + path};
 		l.ws(parameters);
@@ -95,6 +109,9 @@ public class FileSystemService extends UpweeService {
 		
 	}
 	
+	/**
+	* A function that is used to upload a single file n a specifc path
+	*/
 	public String uploadSingleFile(MultipartFile file, String dirPath) {
 		if(!file.isEmpty()) {
 			try {
@@ -110,7 +127,10 @@ public class FileSystemService extends UpweeService {
 		}
 	}
 	
-	//https://www.mkyong.com/spring-boot/spring-boot-file-upload-example-ajax-and-rest/
+	/**
+	* A function that is used to save files in a list
+	* inspired from https://www.mkyong.com/spring-boot/spring-boot-file-upload-example-ajax-and-rest/
+	*/
 	private void saveFiles(List<MultipartFile> files, String pathToDir) throws IOException {
 		for (MultipartFile file : files) {
 			if (file.isEmpty()) {
@@ -125,6 +145,9 @@ public class FileSystemService extends UpweeService {
 		}
 	}
 
+	/**
+	* A function that is used to create a folder in a specific path
+	*/
 	public String createFolder(String path) {
 		String[]parameters = {"path :" + path};
 		l.ws(parameters);
@@ -137,19 +160,19 @@ public class FileSystemService extends UpweeService {
 		}
 	}
 
+	/**
+	* A function that is used to move a file inside of another path
+	*/
 	public String move(UpweeMoveParams params, String path) {
 		String[]parameters = {"path :" + path, "file : " + params.getFile(), "target : " + params.getTarget()};
 		l.ws(parameters);
 		UpweeFile f = new UpweeFile(path+'/'+params.getFile());
 		UpweeFile t;
+		//We check if the file is sended into another file in the same tree level or if it goes in a file that is closer to the root
 		if(params.getTarget() == null || params.getTarget().equals(""))
 			t = new UpweeFile(path+'/'+f.getName());
 		else
 			t = new UpweeFile(path+'/'+params.getTarget()+params.getFile());
-
-		l.i("f path" + f.getAbsolutePath().toString());
-		l.i("t path" + t.getAbsolutePath().toString());
-		l.i("moving " + f.getName() + " to " + t.getName());
 		
 		try {
 			Path newPath = Files.move(f.toPath(), t.toPath(), StandardCopyOption.REPLACE_EXISTING);

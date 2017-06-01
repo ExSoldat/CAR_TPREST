@@ -3,7 +3,9 @@ package fr.lille1_univ.car_tprest.jetty.model.parameters;
 import org.json.JSONObject;
 
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
-
+	/**
+	* A class that represents users credentials
+	*/
 public class UpweeCredentials {
 	private String login;
 	private String password;
@@ -31,6 +33,9 @@ public class UpweeCredentials {
 		return password;
 	}
 	
+	/**
+	* A function that is used to get the credentials from a post request body
+	*/
 	public static UpweeCredentials getFromJsonString(String json) {
 		JSONObject obj = new JSONObject(json);
 		Logger l = new Logger("UpweeGetFromJSONString");

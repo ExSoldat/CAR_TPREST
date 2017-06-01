@@ -5,16 +5,28 @@ import java.util.Map;
 
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
+/**
+* A Java class that is used to render JSON Complex objects
+*
+*/
+
 public class JSONComplexObject {
-	//Utilisation d'Arrays : créer des ojest etendant list et dans la valeur de la map ajouter une chaine de caractèr
 	private Map<String, JSONRenderableObject> props = new HashMap<String, JSONRenderableObject>();
 	public Logger l = new Logger("JSONComplexObject");
 	
+	/**
+	*
+	* Adding a prop to the object
+	*
+	*/
 	public void addProp(String key, JSONRenderableObject value) {
 		this.props.put(key, value);
 		l.i("Adding prop : " + key + " - " + value.getValue());
 	}
 	
+	/**
+	* A function that is used to render the object with all his props
+	*/
 	public String renderComplexJSON() {
 		int c = 1;
 		String r = "{";

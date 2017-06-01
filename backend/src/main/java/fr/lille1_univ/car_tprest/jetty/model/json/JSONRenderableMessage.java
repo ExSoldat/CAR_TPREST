@@ -2,6 +2,9 @@ package fr.lille1_univ.car_tprest.jetty.model.json;
 
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
 
+	/**
+	* A class used to render messages (information or errors)
+	*/
 public class JSONRenderableMessage extends JSONComplexObject implements JSONRenderableObject {
 
 	private UpweeMessage value;

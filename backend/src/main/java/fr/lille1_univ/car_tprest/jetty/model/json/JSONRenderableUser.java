@@ -1,7 +1,9 @@
 package fr.lille1_univ.car_tprest.jetty.model.json;
 
 import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
-
+	/**
+	* A class used to render users
+	*/
 public class JSONRenderableUser extends JSONComplexObject implements JSONRenderableObject {
 	
 	public UpweeUser value;

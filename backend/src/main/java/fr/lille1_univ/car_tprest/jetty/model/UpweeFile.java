@@ -8,15 +8,17 @@ import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableFile;
 import fr.lille1_univ.car_tprest.jetty.utils.Constants;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
+/**
+	* A class that represents a file
+	*/
 public class UpweeFile extends File {
 	
-	public UpweeUser owner;
-	public ArrayList<UpweeUser> readers;	
+	public UpweeUser owner; 
+	public ArrayList<UpweeUser> readers; //Unused
 	public UpweeFile[] files;	
 	public JSONRenderableFile[] renderableFiles;	
 	public String upweePath;
-	//TODO get the file type like "image, text, video, sound, etc, volume_up"
-	public String extension = "";
+	public String extension = ""; // TODO : replace by a type like "image/movie/music/file"
 	public String mimetype = ""; //TODO ?
 	Logger l = new Logger("UpweeFile");
 
@@ -24,10 +26,8 @@ public class UpweeFile extends File {
 		super(Constants.WORK_DIRECTORY + "/"  + pathname);
 		l.i("creating file : " + this.getPath() + " absolute : " + this.getAbsolutePath());
 		
-		//Un peu mal fait j'aurais besoin d'enregiser les propriétaires et les lecteurs en base
-		//TODO simuler ce fonctionnement ? (Par un fichier texte ou whatever)
 		this.owner = null;
-		this.readers = null; //Pour le moment, need fausse bdd pour s'en servir
+		this.readers = null; //Because unused
 		this.upweePath = Constants.WORK_DIRECTORY + "/"  + pathname;
 		
 		int i = pathname.lastIndexOf('.');
@@ -35,7 +35,7 @@ public class UpweeFile extends File {
 		    this.extension = pathname.substring(i+1);
 		} else {
 			if(this.isFile()) {
-				this.extension = "txt";
+				this.extension = "txt"; //Avoid to get files without extension to be treated as folders
 			} else {
 				this.extension = "folder";
 			}
@@ -46,6 +46,8 @@ public class UpweeFile extends File {
 	@Override
 	@Deprecated
 	/***
+	 * An usnused function
+	 * see listRenderableFiles
 	 * @deprecated
 	 */
 	public UpweeFile[] listFiles() {
@@ -66,12 +68,14 @@ public class UpweeFile extends File {
 	public String getUpweePath() {
 		return this.upweePath;
 	}
-
+	/**
+	* A function that is used to get a representation of the files list to answer to the rest service
+	* Last minute update : Added an ugly double loop to firstly send folders then files
+	*/
 	public JSONRenderableFile[] listRenderableFiles() {
 		File[] files = super.listFiles();
 		this.renderableFiles = new JSONRenderableFile[files.length];
 		int ri = 0;
-		//First we show folders dernière minute : affichage
 		for(int i=0;i<files.length;i++) {
 			String properpath = files[i].getPath().replaceAll(Constants.WORK_DIRECTORY, "");
 			l.i("proper path : " + properpath);
@@ -83,7 +87,6 @@ public class UpweeFile extends File {
 			}
 		}
 		
-		//Then we add files dernière minute : affichage
 		for(int i=0;i<files.length;i++) {
 			String properpath = files[i].getPath().replaceAll(Constants.WORK_DIRECTORY, "");
 			l.i("proper path : " + properpath);
@@ -97,7 +100,9 @@ public class UpweeFile extends File {
 		return this.renderableFiles;
 	}
 	
-	//Ajouts de dernière minute
+	/**
+	* Static functions used to get file type, used exclusively to get the icon we should show in the front end
+	*/
 	public static boolean isImage(String extension) {
 		return extension.equals("jpeg") || extension.equals("jpg") || extension.equals("gif") || extension.equals("bmp") 
 			||	extension.equals("svg") || extension.equals("png");

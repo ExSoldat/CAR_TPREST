@@ -1,9 +1,13 @@
 package fr.lille1_univ.car_tprest.jetty.model;
-
+/**
+	* A class that represents a message (information or error)
+	*/
 public class UpweeMessage {
 	public int code;
 	public String message;
-	
+	/**
+	* We shall only send constant message in order to keep track of the errors
+	*/
 	/*100-199, Informations*/
 	/*200-299, OK*/
 	public static final UpweeMessage ACCESS_GRANTED = new UpweeMessage(200, "Access granted");

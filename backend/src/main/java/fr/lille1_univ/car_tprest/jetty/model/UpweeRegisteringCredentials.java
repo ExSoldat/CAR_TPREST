@@ -5,6 +5,9 @@ import org.json.JSONObject;
 import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
+	/**
+	* A class that is used to reresent the credentials used to register
+	*/
 public class UpweeRegisteringCredentials extends UpweeCredentials {
 	private String email;
 	
@@ -20,7 +23,9 @@ public class UpweeRegisteringCredentials extends UpweeCredentials {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+	/**
+	* A function to get the credentials from json body
+	*/
 	public static UpweeRegisteringCredentials getFromJsonString(String json) {
 		JSONObject obj = new JSONObject(json);
 		Logger l = new Logger("UpweeGetFromJSONString");

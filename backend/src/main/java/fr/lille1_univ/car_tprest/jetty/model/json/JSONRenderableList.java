@@ -2,6 +2,9 @@ package fr.lille1_univ.car_tprest.jetty.model.json;
 
 import java.util.ArrayList;
 
+	/**
+	* A class used to render objects lists
+	*/
 public class JSONRenderableList extends JSONComplexObject implements JSONRenderableObject {
 	
 	ArrayList<JSONRenderableObject> values;

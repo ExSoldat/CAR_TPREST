@@ -52,18 +52,22 @@ import fr.lille1_univ.car_tprest.jetty.service.AuthenticationService;
 import fr.lille1_univ.car_tprest.jetty.service.FileSystemService;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
+	/**
+	* The controller of the server
+	*/
 @Controller
 public class UpweeController {
-	//http://stackoverflow.com/questions/32319396/cors-with-spring-boot-and-angularjs-not-working
-	
-	Logger l = new Logger("FileController");
+	Logger l = new Logger("UpweeController");
 	
 	@Autowired
-	private AuthenticationService authenticationService;
+	private AuthenticationService authenticationService; //manage authentication
 	
 	@Autowired
-	private FileSystemService fileSystemService;
-	
+	private FileSystemService fileSystemService; //manage files
+
+	/**
+	* A call that allows users to authenticate
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			headers = {"Content-type=application/json"},
@@ -74,6 +78,9 @@ public class UpweeController {
 		return this.authenticationService.authenticate(UpweeCredentials.getFromJsonString(credentials));
 	}
 	
+	/**
+	* A call that is used to register a new user
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			headers = {"Content-type=application/json"},
@@ -84,6 +91,9 @@ public class UpweeController {
 		return this.authenticationService.register(UpweeRegisteringCredentials.getFromJsonString(credentials));
 	}
 	
+	/**
+	* A call that is used to render the file list of the corresponding path
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/**", 
@@ -100,7 +110,9 @@ public class UpweeController {
 	}
 	
 	
-	
+	/**
+	* A call that is used to download the file in the pat corresponding to the filename
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.GET},
 			value="/api/files/download/**", 
@@ -122,6 +134,9 @@ public class UpweeController {
 		}
 	}
 	
+	/**
+	* A call that is used to render the object with all his props
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.DELETE},
 			value="/api/files/delete/**", 
@@ -137,6 +152,9 @@ public class UpweeController {
 		return this.fileSystemService.deleteFromPath(getFullFileRequestPath("/api/files/delete/**", request, decodedfileName));
 	}
 	
+	/**
+	* A call that is used to upload a new file to the server
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			value="/api/files/upload/**", 
@@ -151,6 +169,9 @@ public class UpweeController {
 		}
 	}
 	
+	/**
+	* A call that is used to move a file to another path
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			headers = {"Content-type=application/json"},
@@ -161,6 +182,9 @@ public class UpweeController {
 		return this.fileSystemService.move(UpweeMoveParams.getFromJsonString(parameters), getFullFileRequestPath("/api/files/create/**", request, ""));
 	}
 	
+	/**
+	* A call that is used to create a new file
+	*/
 	@CrossOrigin
 	@RequestMapping(method = {RequestMethod.POST},
 			value="/api/files/create/**", 
@@ -173,7 +197,9 @@ public class UpweeController {
 	/**
 	 * Helper functions
 	 */
-	
+	/**
+	* An helper function that is used to render the path from a request
+	*/
 	public String getFullFileRequestPath(String pattern, HttpServletRequest request, String filename) {
 		String tail = new AntPathMatcher().extractPathWithinPattern(pattern, request.getRequestURI());
 		return tail+="/" + filename;

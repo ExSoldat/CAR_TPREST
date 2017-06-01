@@ -1,5 +1,7 @@
 package fr.lille1_univ.car_tprest.jetty.model.json;
-
+	/**
+	* A class used to render ints
+	*/
 public class JSONRenderableInt implements JSONRenderableObject {
 
 	private int value;
