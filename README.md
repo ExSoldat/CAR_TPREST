@@ -1,5 +1,5 @@
 **SAAB Mathieu**
-**M1 MIAGE **
+**M1 MIAGE**
 **TP de Conception d'Application Réparties**
 **Application de gestion de fichiers REST**
 
