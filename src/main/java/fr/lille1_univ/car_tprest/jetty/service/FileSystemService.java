@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeFile;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeFileList;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
@@ -27,6 +28,8 @@ import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableFile;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableUser;
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeCredentials;
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeMoveParams;
 import fr.lille1_univ.car_tprest.jetty.utils.Constants;
 import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
 
@@ -89,6 +92,7 @@ public class FileSystemService extends UpweeService {
 		} else {
 			return new JSONRenderableMessage(UpweeMessage.UNEXISTING_FILE).renderJSON();
 		}	
+		
 	}
 	
 	public String uploadSingleFile(MultipartFile file, String dirPath) {
@@ -130,6 +134,28 @@ public class FileSystemService extends UpweeService {
 			return new JSONRenderableMessage(UpweeMessage.FOLDER_CREATED).renderJSON();
 		} else {
 			return new JSONRenderableMessage(UpweeMessage.IMPOSSIBLE_CREATION).renderJSON();
+		}
+	}
+
+	public String move(UpweeMoveParams params, String path) {
+		String[]parameters = {"path :" + path, "file : " + params.getFile(), "target : " + params.getTarget()};
+		l.ws(parameters);
+		UpweeFile f = new UpweeFile(path+'/'+params.getFile());
+		UpweeFile t;
+		if(params.getTarget() == null || params.getTarget().equals(""))
+			t = new UpweeFile(path+'/'+f.getName());
+		else
+			t = new UpweeFile(path+'/'+params.getTarget()+params.getFile());
+
+		l.i("f path" + f.getAbsolutePath().toString());
+		l.i("t path" + t.getAbsolutePath().toString());
+		l.i("moving " + f.getName() + " to " + t.getName());
+		
+		try {
+			Path newPath = Files.move(f.toPath(), t.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			return new JSONRenderableMessage(UpweeMessage.MOVE_SUCCESS).renderJSON();
+		} catch (IOException e) {
+			return new JSONRenderableMessage(UpweeMessage.MOVE_FAILURE).renderJSON();
 		}
 	}
 }

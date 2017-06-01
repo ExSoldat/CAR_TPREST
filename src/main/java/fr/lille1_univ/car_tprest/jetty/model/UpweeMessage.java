@@ -12,6 +12,8 @@ public class UpweeMessage {
 	public static final UpweeMessage SUCCESSFULLY_UPLOADED = new UpweeMessage(203, "The file was successfully uploaded");
 	public static final UpweeMessage FOLDER_CREATED = new UpweeMessage(204, "The folder was successfully created");
 	public static final UpweeMessage ACCOUNT_CREATED = new UpweeMessage(205, "Account successfuly created");
+	public static final UpweeMessage MOVE_SUCCESS = new UpweeMessage(206, "File successfully moved");
+
 	/*300-399, Authorization*/
 	/*400-499, Error */
 	public static final UpweeMessage UNKNOWN_USER = new UpweeMessage(400, "User not found");
@@ -22,6 +24,8 @@ public class UpweeMessage {
 	public static final UpweeMessage IMPOSSIBLE_CREATION = new UpweeMessage(405, "Unable to create the folder. Please try again");
 	public static final UpweeMessage UNABLE_ACCOUNT_CREATION = new UpweeMessage(406, "Unable to create your account");
 	public static final UpweeMessage TOO_LARGE_FILE = new UpweeMessage(407, "File size exceeds maximum authorized");
+	public static final UpweeMessage MOVE_FAILURE= new UpweeMessage(408, "An error occured while moving the file. Please check that it does not already exist");
+
 	/*500-599, Invalid Parameters*/
 	public static final UpweeMessage INVALID_LOGIN = new UpweeMessage(500, "Invalid login");
 	public static final UpweeMessage INVALID_PASSWORD = new UpweeMessage(501, "Invalid password");

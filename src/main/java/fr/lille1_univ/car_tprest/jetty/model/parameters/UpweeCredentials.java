@@ -1,4 +1,4 @@
-package fr.lille1_univ.car_tprest.jetty.model;
+package fr.lille1_univ.car_tprest.jetty.model.parameters;
 
 import org.json.JSONObject;
 

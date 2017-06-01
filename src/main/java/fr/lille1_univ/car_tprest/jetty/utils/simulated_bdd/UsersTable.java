@@ -22,9 +22,11 @@ public class UsersTable extends ArrayList<UpweeUser>{
 			fr = new FileReader("user_database.txt");
 			br = new BufferedReader(fr);
 
-			while ((s = br.readLine()) != null && !s.equals("")) {
-				String[] stru = s.split(",");
-			    this.add(new UpweeUser(stru[0], stru[1], stru[2], false));
+			while ((s = br.readLine()) != null) {
+				if(!s.equals("")) {
+					String[] stru = s.split(",");
+				    this.add(new UpweeUser(stru[0], stru[1], stru[2], false));
+				}
 			}
 			br.close();
 			fr.close();

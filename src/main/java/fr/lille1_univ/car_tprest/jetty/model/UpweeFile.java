@@ -97,7 +97,7 @@ public class UpweeFile extends File {
 		return this.renderableFiles;
 	}
 	
-	//Ajout de dernière minute
+	//Ajouts de dernière minute
 	public static boolean isImage(String extension) {
 		return extension.equals("jpeg") || extension.equals("jpg") || extension.equals("gif") || extension.equals("bmp") 
 			||	extension.equals("svg") || extension.equals("png");
@@ -112,5 +112,4 @@ public class UpweeFile extends File {
 		return extension.equals("mkv") || extension.equals("flv") || extension.equals("avi") || extension.equals("mp4") 
 				||	extension.equals("amv");
 	}
-
 }

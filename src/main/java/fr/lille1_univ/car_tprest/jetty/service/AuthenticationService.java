@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeRegisteringCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeUser;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableUser;
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 import fr.lille1_univ.car_tprest.jetty.utils.simulated_bdd.UsersTable;
 

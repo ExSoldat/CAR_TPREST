@@ -42,11 +42,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.lille1_univ.car_tprest.jetty.model.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeFile;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeMessage;
 import fr.lille1_univ.car_tprest.jetty.model.UpweeRegisteringCredentials;
 import fr.lille1_univ.car_tprest.jetty.model.json.JSONRenderableMessage;
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeCredentials;
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeMoveParams;
 import fr.lille1_univ.car_tprest.jetty.service.AuthenticationService;
 import fr.lille1_univ.car_tprest.jetty.service.FileSystemService;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
@@ -113,6 +114,7 @@ public class UpweeController {
 			InputStream stream = this.fileSystemService.getFile(getFullFileRequestPath("/api/files/download/**", request, decodedfileName));
 			IOUtils.copy(stream, response.getOutputStream());
 			response.flushBuffer();
+			stream.close();
 			
 		} catch (Exception e) {
 			l.e("Unable to get file");
@@ -147,6 +149,16 @@ public class UpweeController {
 		} catch (IllegalStateException e) { 
 			return new JSONRenderableMessage(UpweeMessage.TOO_LARGE_FILE).renderJSON();
 		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method = {RequestMethod.POST},
+			headers = {"Content-type=application/json"},
+			value="/api/files/move/**", 
+			produces="application/json")
+	public @ResponseBody String move(
+			@RequestBody String parameters, HttpServletRequest request) {
+		return this.fileSystemService.move(UpweeMoveParams.getFromJsonString(parameters), getFullFileRequestPath("/api/files/create/**", request, ""));
 	}
 	
 	@CrossOrigin

@@ -2,6 +2,7 @@ package fr.lille1_univ.car_tprest.jetty.model;
 
 import org.json.JSONObject;
 
+import fr.lille1_univ.car_tprest.jetty.model.parameters.UpweeCredentials;
 import fr.lille1_univ.car_tprest.jetty.utils.Logger;
 
 public class UpweeRegisteringCredentials extends UpweeCredentials {
